@@ -1,15 +1,21 @@
-const { DataTypes } = requiere("sequelize");
+const { DataTypes } = require("sequelize");
 
-module.export = (Sequelize) => {
-  Sequelize.define("Genres", {
-    ID: {
-      type: DataTypes.UUID,
-      autoIncrement: true,
-      primaryKey: true,
+module.exports = (sequelize) => {
+  sequelize.define(
+    "Genres",
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-  });
+    {
+      timestamps: false,
+    }
+  );
 };

@@ -4,12 +4,11 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
-    "videogame",
+    "Videogames",
     {
       id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
-        allowNull: false,
         primaryKey: true,
       },
       name: {
@@ -43,7 +42,7 @@ module.exports = (sequelize) => {
       },
     },
     {
-      timestamp: false,
+      timestamps: false,
     }
   );
 };
