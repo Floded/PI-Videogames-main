@@ -2,7 +2,8 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
-const router = require("./routes/index.js");
+const routes = require("./routes/index.js");
+
 const { json } = require("sequelize");
 
 require("./db.js");
@@ -26,7 +27,7 @@ server.use((req, res, next) => {
   next();
 });
 
-server.use("/", router);
+server.use("/", routes);
 
 // Error catching endware.
 server.use((err, req, res, next) => {

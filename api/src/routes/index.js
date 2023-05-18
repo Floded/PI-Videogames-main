@@ -9,14 +9,7 @@ const router = Router();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
-
-// router.get("/videogames/:id", (req, res) => {
-//   res
-//     .status(200)
-//     .send(
-//       "NIY: Esta ruta obtiene el detalle de un videojuego específico. Es decir que devuelve un objeto con la información pedida en el detalle de un videojuego."
-//     );
-// });
+// !! Recordar que para modularizar las rutas estamos usando un middleware... por eso es "router.use()"
 
 router.use("/videogames", gameRouter);
 router.use("/genres", genresRouter);
