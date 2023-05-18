@@ -2,7 +2,7 @@ const { Router } = require("express");
 
 const gameRouter = Router();
 
-gameRouter.get("/videogames/:id", (req, res) => {
+gameRouter.get("/:id", (req, res) => {
   res
     .status(200)
     .send(
@@ -10,7 +10,7 @@ gameRouter.get("/videogames/:id", (req, res) => {
     );
 });
 
-gameRouter.get("/videogames", (req, res) => {
+gameRouter.get("/", (req, res) => {
   res
     .status(200)
     .send(
@@ -18,7 +18,7 @@ gameRouter.get("/videogames", (req, res) => {
     );
 });
 
-gameRouter.get("/videogames", (req, res) => {
+gameRouter.get("/", (req, res) => {
   res
     .status(200)
     .send(
@@ -26,7 +26,7 @@ gameRouter.get("/videogames", (req, res) => {
     );
 });
 
-gameRouter.post("/videogames", (req, res) => {
+gameRouter.post("/", (req, res) => {
   res
     .status(200)
     .send(

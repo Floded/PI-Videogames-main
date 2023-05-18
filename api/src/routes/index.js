@@ -10,12 +10,15 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
-// genresRouter.get("/genres", (req, res) => {
-//   res.status(200).send("NIY: ESTA RUTA TRAE LOS GENEROS");
+// router.get("/videogames/:id", (req, res) => {
+//   res
+//     .status(200)
+//     .send(
+//       "NIY: Esta ruta obtiene el detalle de un videojuego específico. Es decir que devuelve un objeto con la información pedida en el detalle de un videojuego."
+//     );
 // });
 
-router.get("/videogames", gameRouter);
-router.post("/videogames", gameRouter);
-router.get("/genres", genresRouter);
+router.use("/videogames", gameRouter);
+router.use("/genres", genresRouter);
 
 module.exports = router;
