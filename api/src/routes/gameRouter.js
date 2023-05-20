@@ -1,20 +1,19 @@
 const { Router } = require("express");
 
 const {
-  getByIdVideogames,
-  getAllVideogames,
-  getQueryVideogames,
-  createVideogame,
+  getByIdVideogamesHandler,
+  getVideogamesHandler,
+  createVideogameHandler,
 } = require("../handlers/getGameHandler");
 
 const gameRouter = Router();
 
-gameRouter.get("/:id", getByIdVideogames);
+gameRouter.get("/:id", getByIdVideogamesHandler);
 
-gameRouter.get("/", getAllVideogames);
+// En esta ruto unificamos Get/quiery y Get/videogames.
 
-gameRouter.get("/", getQueryVideogames);
+gameRouter.get("/", getVideogamesHandler);
 
-gameRouter.post("/", createVideogame);
+gameRouter.post("/", createVideogameHandler);
 
 module.exports = gameRouter;

@@ -1,35 +1,67 @@
-const getByIdVideogames = (req, res) => {
-  res.send(
-    "NIY: Esta ruta obtiene el detalle de un videojuego específico. Es decir que devuelve un objeto con la información pedida en el detalle de un videojuego."
-  );
+require("dotenv").config();
+const { API_KEY } = process.env;
+const {
+  createVideogame,
+  findGenres,
+  findByIdVideogame,
+  getAllGame,
+  searchGameByname,
+} = require("../controllers/gameController");
+
+const getByIdVideogamesHandler = async (req, res) => {
+  const { id } = req.params;
+  const search = isNaN(id) ? "BDD" : "API";
+  try {
+    const findId = await findByIdVideogame(id, search);
+    // console.log(findId);
+    res.status(200).json(findId);
+  } catch (error) {
+    res.status(404).json({ error: error.message });
+  }
 };
 
-const getAllVideogames = (req, res) => {
-  res.send(
-    "NIY: Obtiene un arreglo de objetos, donde cada objeto es un videojuego con su información."
-  );
+const createVideogameHandler = async (req, res) => {
+  try {
+    const { name, description, plataforms, image, launchDate, rating } =
+      req.body;
+    const newVideogame = await createVideogame(
+      name,
+      description,
+      plataforms,
+      image,
+      launchDate,
+      rating
+    );
+    res.status(201).json(newVideogame);
+  } catch (error) {
+    res.status(404).json({ error: error.message });
+  }
 };
 
-const getQueryVideogames = (req, res) => {
-  res.send(
-    "NIY: Esta ruta debe obtener los primeros 15 videojuegos que se encuentren con la palabra recibida por query."
-  );
+const getVideogamesHandler = async (req, res) => {
+  const { name } = req.query;
+  try {
+    const results = name ? await searchGameByname(name) : await getAllGame();
+    res.status(200).json(results);
+  } catch (error) {
+    res.status(404).json({ error: error.message });
+  }
 };
 
-const createVideogame = (req, res) => {
-  res.send(
-    "NIY: Esta ruta recibirá todos los datos necesarios para crear un videojuego y relacionarlo con sus géneros solicitados."
-  );
-};
-
-const getGenres = (req, res) => {
-  res.send("NIY: ESTA RUTA TRAE LOS GENEROS");
+const getGenresHandler = async (req, res) => {
+  try {
+    // const URL = `https://api.rawg.io/api/games?key=${API_KEY}`;
+    const genres = await findGenres();
+    // console.log(genres);
+    res.status(201).json(genres);
+  } catch (error) {
+    res.status(404).json({ error: error.message });
+  }
 };
 
 module.exports = {
-  getByIdVideogames,
-  getAllVideogames,
-  getQueryVideogames,
-  createVideogame,
-  getGenres,
+  getByIdVideogamesHandler,
+  getVideogamesHandler,
+  createVideogameHandler,
+  getGenresHandler,
 };
