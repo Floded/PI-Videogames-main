@@ -39,8 +39,8 @@ const createVideogameHandler = async (req, res) => {
 };
 
 const getVideogamesHandler = async (req, res) => {
-  const { name } = req.query;
   try {
+    const { name } = req.query;
     const results = name ? await searchGameByname(name) : await getAllGame();
     res.status(200).json(results);
   } catch (error) {
@@ -50,7 +50,6 @@ const getVideogamesHandler = async (req, res) => {
 
 const getGenresHandler = async (req, res) => {
   try {
-    // const URL = `https://api.rawg.io/api/games?key=${API_KEY}`;
     const genres = await findGenres();
     // console.log(genres);
     res.status(201).json(genres);

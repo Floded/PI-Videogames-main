@@ -1,7 +1,8 @@
 require("dotenv").config();
 // Aqui vamos a poder trabajar con el Modelo ya creado para la BDD, para ello lo importamos.
 
-const { Videogames } = require("../db");
+const { Videogames, Genres } = require("../db");
+const { Op } = require("sequelize");
 
 const { API_KEY } = process.env;
 const axios = require("axios");
@@ -43,7 +44,7 @@ const findByIdVideogame = async (id, search) => {
 };
 
 //Get all games
-
+// Funcionando -------
 const getAllGame = async () => {
   //Buscar en BDD
 
@@ -60,48 +61,35 @@ const getAllGame = async () => {
 // Get by query
 const searchGameByname = async (name) => {
   // Buscar por BDD
-  // const dbbGames = Videogames.findAll({ where: { [op.LIKE]: name } });
+  const bddGames = await Videogames.findAll({
+    where: { name: { [Op.like]: `${name}%` } },
+  });
   // Buscar por Api
   const apiGamesS = (await axios.get(URL)).data.results;
   const apiGames = cleanArray(apiGamesS);
 
-  const filteredApi = apiGames.filter((element) =>
+  let filteredApi = apiGames.filter((element) =>
     element.name.toLowerCase().includes(name)
   );
-  // unicicar ambas
+  // console.log(filteredApi);
+  // unificar ambas
 
   return [...filteredApi, ...bddGames];
 };
 
 // Get/Genres
 const findGenres = async () => {
-  const response = await axios.get(URL);
-  const { results } = response.data;
-
-  // let aux = [];
-
-  // return results.forEach((x) => {
-  // x.genres.filter((x) => console.log(x.name));
-  // aux.push(x.id);
-  // });
-
-  // return aux;
-
-  // let newResults = results.filter((element) => {
-  //   element.name === "Grand Theft Auto v";
-  // });
-
-  // const genresAll = [];
-  // for (let i = 0; i < results.length; i++) {
-  //   let aux = results[i].genres;
-  //   genresAll.push(aux);
-  // }
-  // return genresAll[1][0].name;
-  // results.forEach((element) => {
-  //   console.log(element.count);
-  // });
-
-  return results;
+  const response = (
+    await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`)
+  ).data.results;
+  const allGenres = [];
+  for (let i = 0; i < response.length; i++) {
+    const newGenres = Genres.findOrCreate({
+      where: { name: response[i].name },
+    });
+    allGenres.push(response[i].name);
+  }
+  return allGenres;
 };
 
 module.exports = {

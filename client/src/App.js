@@ -1,9 +1,30 @@
-import './App.css';
+import "./App.css";
+import { Route } from "react-router-dom";
+
+import Landing from "./views/Landing/Landing";
+import Home from "./views/Home/Home";
+import Detail from "./views/Detail/Detail";
+import Form from "./views/Form/Form";
+import NavBar from "./components/NavBar/NavBar";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 function App() {
+  const location = useLocation();
   return (
     <div className="App">
-      <h1>Henry Videogames</h1>
+      {location.pathname !== "/" && <NavBar />}
+      <Route exact path="/">
+        <Landing />
+      </Route>
+      <Route path="/home">
+        <Home />
+      </Route>
+      <Route path="/form">
+        <Form />
+      </Route>
+      <Route path="/detail">
+        <Detail />
+      </Route>
     </div>
   );
 }

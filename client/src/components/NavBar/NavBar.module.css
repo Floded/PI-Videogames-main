@@ -1,0 +1,10 @@
+.Container {
+    /* height: 50px;
+    width: 200px; */
+    /* background: rgb(174, 174, 216); */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 15px;
+}
