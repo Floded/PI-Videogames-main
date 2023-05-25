@@ -2,11 +2,11 @@ require("dotenv").config();
 const { API_KEY } = process.env;
 const {
   createVideogame,
-  findGenres,
   findByIdVideogame,
   getAllGame,
   searchGameByname,
 } = require("../controllers/gameController");
+const { findGenres } = require("../controllers/genreController");
 
 const getByIdVideogamesHandler = async (req, res) => {
   const { id } = req.params;
@@ -48,19 +48,8 @@ const getVideogamesHandler = async (req, res) => {
   }
 };
 
-const getGenresHandler = async (req, res) => {
-  try {
-    const genres = await findGenres();
-    // console.log(genres);
-    res.status(201).json(genres);
-  } catch (error) {
-    res.status(404).json({ error: error.message });
-  }
-};
-
 module.exports = {
   getByIdVideogamesHandler,
   getVideogamesHandler,
   createVideogameHandler,
-  getGenresHandler,
 };

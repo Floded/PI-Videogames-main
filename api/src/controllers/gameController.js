@@ -1,7 +1,7 @@
 require("dotenv").config();
 // Aqui vamos a poder trabajar con el Modelo ya creado para la BDD, para ello lo importamos.
 
-const { Videogames, Genres } = require("../db");
+const { Videogames } = require("../db");
 const { Op } = require("sequelize");
 
 const { API_KEY } = process.env;
@@ -65,7 +65,11 @@ const searchGameByname = async (name) => {
     where: { name: { [Op.like]: `${name}%` } },
   });
   // Buscar por Api
-  const apiGamesS = (await axios.get(URL)).data.results;
+  const apiGamesS = (
+    await axios.get(
+      `https://api.rawg.io/api/games?search=${name}?key=${API_KEY}`
+    )
+  ).data.results;
   const apiGames = cleanArray(apiGamesS);
 
   let filteredApi = apiGames.filter((element) =>
@@ -78,23 +82,9 @@ const searchGameByname = async (name) => {
 };
 
 // Get/Genres
-const findGenres = async () => {
-  const response = (
-    await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`)
-  ).data.results;
-  const allGenres = [];
-  for (let i = 0; i < response.length; i++) {
-    const newGenres = Genres.findOrCreate({
-      where: { name: response[i].name },
-    });
-    allGenres.push(response[i].name);
-  }
-  return allGenres;
-};
 
 module.exports = {
   createVideogame,
-  findGenres,
   findByIdVideogame,
   searchGameByname,
   getAllGame,
