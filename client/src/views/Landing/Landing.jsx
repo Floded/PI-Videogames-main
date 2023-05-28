@@ -1,11 +1,15 @@
-// import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Landing = () => {
-  // const navigate = useNavigate();
+  const navigate = useHistory();
+  const goToHome = () => {
+    // console.log("click");
+    navigate.push("/home");
+  };
   return (
     <div>
       <h1>Soy tu LANDING PAGE</h1>
-      {/* <button onClick={navigate(+1)}>Home</button> */}
+      <button onClick={goToHome}>Home</button>
     </div>
   );
 };

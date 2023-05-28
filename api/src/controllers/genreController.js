@@ -11,8 +11,11 @@ const findGenres = async () => {
     const newGenres = Genres.findOrCreate({
       where: { name: response[i].name },
     });
-    allGenres.push(response[i].name);
+    // [...allGenres, response[i].id, response[i].name];
+    allGenres.push({ id: response[i].id, name: response[i].name });
   }
+
+  // console.log(allGenres);
   return allGenres;
 };
 

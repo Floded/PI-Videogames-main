@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const CardContainer = () => {
   const videogames = useSelector((state) => state.videoGames);
-  console.log(videogames);
+  // console.log(videogames);
 
   return (
     <div className={styles.Container}>

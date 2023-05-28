@@ -9,7 +9,7 @@ const Home = () => {
   // que haga el dispatch cuando se monte.
   useEffect(() => {
     dispatch(getVideoGames());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>

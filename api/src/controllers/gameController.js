@@ -16,18 +16,20 @@ const URL = `https://api.rawg.io/api/games?key=${API_KEY}`;
 const createVideogame = async (
   name,
   description,
-  plataforms,
+  platforms,
   image,
   launchDate,
-  rating
+  rating,
+  genres
 ) => {
   const newGame = await Videogames.create({
     name,
     description,
-    plataforms,
+    platforms,
     image,
     launchDate,
     rating,
+    genres,
   });
   return newGame;
 };
@@ -67,7 +69,7 @@ const searchGameByname = async (name) => {
   // Buscar por Api
   const apiGamesS = (
     await axios.get(
-      `https://api.rawg.io/api/games?search=${name}?key=${API_KEY}`
+      `https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`
     )
   ).data.results;
   const apiGames = cleanArray(apiGamesS);

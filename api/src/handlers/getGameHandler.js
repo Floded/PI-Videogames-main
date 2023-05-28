@@ -6,7 +6,6 @@ const {
   getAllGame,
   searchGameByname,
 } = require("../controllers/gameController");
-const { findGenres } = require("../controllers/genreController");
 
 const getByIdVideogamesHandler = async (req, res) => {
   const { id } = req.params;
@@ -22,15 +21,16 @@ const getByIdVideogamesHandler = async (req, res) => {
 
 const createVideogameHandler = async (req, res) => {
   try {
-    const { name, description, plataforms, image, launchDate, rating } =
+    const { name, description, platforms, image, launchDate, rating, genres } =
       req.body;
     const newVideogame = await createVideogame(
       name,
       description,
-      plataforms,
+      platforms,
       image,
       launchDate,
-      rating
+      rating,
+      genres
     );
     res.status(201).json(newVideogame);
   } catch (error) {
