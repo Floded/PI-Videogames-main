@@ -29,8 +29,8 @@ const createVideogameHandler = async (req, res) => {
       platforms,
       image,
       launchDate,
-      rating,
-      genres
+      rating
+      // genres
     );
     res.status(201).json(newVideogame);
   } catch (error) {

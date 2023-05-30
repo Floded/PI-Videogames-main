@@ -19,8 +19,8 @@ const createVideogame = async (
   platforms,
   image,
   launchDate,
-  rating,
-  genres
+  rating
+  // genres
 ) => {
   const newGame = await Videogames.create({
     name,
@@ -29,7 +29,7 @@ const createVideogame = async (
     image,
     launchDate,
     rating,
-    genres,
+    // genres,
   });
   return newGame;
 };
