@@ -6,7 +6,7 @@ const Form = () => {
   const [form, setForm] = useState({
     name: "",
     description: "",
-    platforms: "",
+    platforms: [],
     image: "",
     launchDate: "",
     rating: "",
@@ -27,15 +27,27 @@ const Form = () => {
 
   // fn() onChange
   const handlerChange = (event) => {
-    // console.log(event);
     const { value, name, defaultValue } = event.target;
-    console.log(event);
-    validate({ ...form, [name]: value });
-    if (name === form.genres) {
+
+    const newGame = { ...form, [name]: value };
+
+    // TODO: cuando tenga un objeto insertado realizar la validacion
+    // Si la validacion no pasa, no debe crear o insertar el nuevo videojuego
+    //validate(newGame);
+
+    switch (name) {
+      case "platforms":
+        setForm(newGame);
+        break;
+      default:
+        setForm(newGame);
+    }
+
+    /*if (name === form.genres) {
       setForm({ ...form, genres: defaultValue });
     } else {
       setForm({ ...form, [name]: value });
-    }
+    }*/
   };
 
   // fn() validadora
@@ -60,12 +72,26 @@ const Form = () => {
     }
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
-    axios
-      .post("http://localhost:3001/videogames", form)
-      .then((res) => alert(res))
-      .catch((err) => alert(err));
+
+    const platformSplitted = form.platforms
+      .split(",")
+      .map((platform) => platform.trim());
+
+    form.platforms = platformSplitted;
+
+    try {
+      const res = await axios.post("http://localhost:3001/videogames", form);
+
+      if (res.data.created) {
+        alert("Videojuego creado con exito");
+      } else {
+        alert("Ocurrio un error al momento de crear el videojuego");
+      }
+    } catch (ex) {
+      alert(ex);
+    }
   };
 
   useEffect(() => {
@@ -168,13 +194,6 @@ const Form = () => {
             {element.name}
           </label>
         ))}
-        {/* <input
-          name="genres"
-          type="text"
-          value={form.genres}
-          onChange={handlerChange}
-          placeholder="Genres"
-        /> */}
       </div>
       <button type="submit">Crear</button>
     </form>
