@@ -1,5 +1,6 @@
 // import { useState } from "react";
 // import axios from "axios";
+import style from "./SearchBar.module.css";
 
 export const SearchBar = () => {
   //   const [search, setSearch] = useState("");
@@ -17,7 +18,7 @@ export const SearchBar = () => {
   //     });
   //   };
   return (
-    <div>
+    <div className={style.Container}>
       <div>
         <input
           type="search"

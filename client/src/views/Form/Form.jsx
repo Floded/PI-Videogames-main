@@ -27,9 +27,10 @@ const Form = () => {
 
   // fn() onChange
   const handlerChange = (event) => {
-    const { value, name, defaultValue } = event.target;
+    const { value, name } = event.target; // Genres = defaultValue
 
     const newGame = { ...form, [name]: value };
+    validate(newGame);
 
     // TODO: cuando tenga un objeto insertado realizar la validacion
     // Si la validacion no pasa, no debe crear o insertar el nuevo videojuego
@@ -42,12 +43,6 @@ const Form = () => {
       default:
         setForm(newGame);
     }
-
-    /*if (name === form.genres) {
-      setForm({ ...form, genres: defaultValue });
-    } else {
-      setForm({ ...form, [name]: value });
-    }*/
   };
 
   // fn() validadora
@@ -143,11 +138,12 @@ const Form = () => {
           type="text"
           value={form.platforms}
           onChange={handlerChange}
-          placeholder="Plataforms"
+          placeholder="Console 1, Console 2"
         />
       </div>
       <div>
         <label>Image: </label>
+        <br />
         <input
           name="image"
           type="file"
@@ -180,7 +176,7 @@ const Form = () => {
           placeholder="Rating"
         />
       </div>
-      <div>
+      <div className={style.GenreBox}>
         <label>Genre: </label>
         <br />
         {allGenres.map((element) => (
@@ -195,7 +191,9 @@ const Form = () => {
           </label>
         ))}
       </div>
-      <button type="submit">Crear</button>
+      <div className={style.Button}>
+        <button type="submit">Crear</button>
+      </div>
     </form>
   );
 };

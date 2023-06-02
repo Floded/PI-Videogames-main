@@ -1,4 +1,4 @@
-import "./App.css";
+// import "./App.css";
 import { Route } from "react-router-dom";
 
 import Landing from "./views/Landing/Landing";
@@ -7,6 +7,7 @@ import Detail from "./views/Detail/Detail";
 import Form from "./views/Form/Form";
 import NavBar from "./components/NavBar/NavBar";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import "./App.css";
 
 function App() {
   const location = useLocation();
@@ -22,7 +23,7 @@ function App() {
       <Route path="/form">
         <Form />
       </Route>
-      <Route path="/detail">
+      <Route path="/detail/:detailId">
         <Detail />
       </Route>
     </div>

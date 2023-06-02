@@ -6,8 +6,12 @@ import { SearchBar } from "../SearchBar/SearchBar";
 const NavBar = (onSearch) => {
   return (
     <div className={style.Container}>
-      <Link to="/home">HOME</Link>
-      <Link to="/form">FORM</Link>
+      <Link to="/home" className={style.Link}>
+        HOME
+      </Link>
+      <Link to="/form" className={style.Link}>
+        FORM
+      </Link>
       <SearchBar onSearch={(gameId) => PaymentResponse.onSearch(gameId)} />
     </div>
   );
