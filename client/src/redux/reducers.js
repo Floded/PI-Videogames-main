@@ -2,6 +2,7 @@ import {
   GET_GENRES,
   GET_VIDEOGAMES,
   GET_BY_ID,
+  GET_BY_NAME,
   // CREATE_VIDEOGAME,
 } from "./actionsTypes";
 
@@ -10,6 +11,7 @@ const initialState = {
   game: [],
   gameDetail: [],
   newGame: [],
+  nameGame: [],
 };
 
 const rootReducer = (state = initialState, actions) => {
@@ -20,8 +22,8 @@ const rootReducer = (state = initialState, actions) => {
       return { ...state, game: actions.payload };
     case GET_BY_ID:
       return { ...state, gameDetail: actions.payload };
-    // case CREATE_VIDEOGAME:
-    //   return { ...state, newGame: actions.payload };
+    case GET_BY_NAME:
+      return { ...state, nameGame: actions.payload };
     default:
       return { ...state };
   }

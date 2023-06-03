@@ -1,38 +1,47 @@
-// import { useState } from "react";
+import { useEffect, useState } from "react";
 // import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+// import { useParams } from "react-router-dom";
+import { getByName } from "../../redux/actions";
 import style from "./SearchBar.module.css";
 
 export const SearchBar = () => {
-  //   const [search, setSearch] = useState("");
-  //   const handleinputChange = (event) => {
-  //     const { value } = event.target.value;
-  //     console.log(event);
-  //     setSearch(value);
-  //   };
+  const [search, setSearch] = useState("");
+  // const params = useParams();
+  const dispatch = useDispatch();
+  // console.log(params);
+  const handleinputChange = (event) => {
+    const { value } = event.target;
+    // console.log(value);
+    setSearch(value);
+  };
 
-  //   const onSearch = (id) => {
-  //     axios.get(`http://localhost:3001/videogames/${id}`).then((res) => {
-  //       const data = res.data;
+  useEffect(() => {
+    dispatch(getByName(search));
+  }, [dispatch, search]);
 
-  //       console.log(data);
-  //     });
-  //   };
+  const nameOfGame = useSelector((state) => state.nameGame);
+  console.log(nameOfGame);
+
+  const onSearch = () => {
+    setSearch(nameOfGame);
+  };
   return (
     <div className={style.Container}>
       <div>
         <input
           type="search"
           placeholder="Search Name"
-          //   onChange={handleinputChange}
+          onChange={handleinputChange}
         />
       </div>
-      {/* <button
+      <button
         onClick={() => {
           onSearch(search);
         }}
       >
         Search
-      </button> */}
+      </button>
     </div>
   );
 };
