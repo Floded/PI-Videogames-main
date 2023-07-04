@@ -12,4 +12,20 @@ const cleanArray = (arr) =>
     };
   });
 
-module.exports = { cleanArray };
+/**
+ * Genera un objeto de respuesta que cumple con una estructura definida
+ * @param  {Boolean} hasAnError Define si hay error en la respuesta
+ * @param  {String} message Descripcion informativa al usuario/cliente
+ * @param  {Object | null } data  Datos que se envian al usuario
+ * @return {Object} Respuesta mapeada
+ */
+
+const responseMapper = (hasAnError, message, data) => {
+  return {
+    error: hasAnError,
+    message,
+    data,
+  };
+};
+
+module.exports = { cleanArray, responseMapper };

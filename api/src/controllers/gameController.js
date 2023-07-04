@@ -1,7 +1,7 @@
 require("dotenv").config();
 // Aqui vamos a poder trabajar con el Modelo ya creado para la BDD, para ello lo importamos.
 
-const { Videogames } = require("../db");
+const { Videogames, Genres } = require("../db");
 const { Op } = require("sequelize");
 
 const { API_KEY } = process.env;
@@ -19,9 +19,18 @@ const createVideogame = async (
   platforms,
   image,
   launchDate,
-  rating
-  // genres
+  rating,
+  genres
 ) => {
+  const isGameAlreadyExists = await Videogames.findOne({
+    where: {
+      name,
+    },
+  });
+  if (isGameAlreadyExists) {
+    throw Error("El juego ya se encuentra en el catalogo");
+  }
+
   const newGame = await Videogames.create({
     name,
     description,
@@ -29,9 +38,21 @@ const createVideogame = async (
     image,
     launchDate,
     rating,
-    // genres,
   });
-  return newGame;
+  newGame.setGenres([...genres]);
+  const gameInserted = await Videogames.findOne({
+    where: {
+      id: newGame.id,
+    },
+    include: [
+      {
+        model: Genres,
+        through: { attributes: [] }, // using empty array will cause not to return the relation fields at all
+      },
+    ],
+  });
+  console.log(gameInserted);
+  return gameInserted;
 };
 
 // Get/ById // funcionando-----

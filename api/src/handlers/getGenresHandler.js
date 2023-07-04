@@ -6,6 +6,7 @@ const getGenresHandler = async (req, res) => {
     // console.log(genres);
     res.status(201).json(genres);
   } catch (error) {
+    console.log(error);
     res.status(404).json({ error: error.message });
   }
 };

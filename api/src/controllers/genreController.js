@@ -6,16 +6,14 @@ const findGenres = async () => {
   const response = (
     await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`)
   ).data.results;
-  const allGenres = [];
+  let allGenres = [];
   for (let i = 0; i < response.length; i++) {
-    const newGenres = Genres.findOrCreate({
-      where: { name: response[i].name },
+    await Genres.findOrCreate({
+      where: { id: response[i].id, name: response[i].name },
     });
-    // [...allGenres, response[i].id, response[i].name];
-    allGenres.push({ id: response[i].id, name: response[i].name });
   }
 
-  // console.log(allGenres);
+  allGenres = await Genres.findAll();
   return allGenres;
 };
 
