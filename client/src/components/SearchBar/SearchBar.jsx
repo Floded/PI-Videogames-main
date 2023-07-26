@@ -36,6 +36,7 @@ export const SearchBar = () => {
         />
       </div>
       <button
+        type="submit"
         onClick={() => {
           onSearch(search);
         }}
